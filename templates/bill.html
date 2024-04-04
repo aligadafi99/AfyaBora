@@ -1,0 +1,254 @@
+{% extends 'base.html' %}
+
+{% block title %}AfyaBora{% endblock title %}
+{%load static%}
+<link rel="stylesheet" href="{%static 'style.css'%}">
+{% block body %}
+<form method="post" action="\bill">
+  {% csrf_token %}
+<div class="container" id="yo">
+  
+  <div class="cols my-4">
+    <h2 style="text-align : center" class="head my-4">Book Appointment</h2>   
+      <div class="form-group col-md-12">
+        <label for="inputEmail4">Full Name : </label>
+        <input type="text" class="form-control" id="billname" name = "billname" placeholder="Full Name">
+      </div>
+      <div class="form-row ">
+        <div class="form-group col-md-6">
+          <label for="billemail">Email : </label>
+          <input type="email" class="form-control" id="billemail" name = "billemail" placeholder="name@gmail.com">
+        </div>
+        <div class="form-group col-md-6">
+          <label for="billphone">Phone Number : </label>
+          <input type="tel" class="form-control" id="billphone" name = "billphone">
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="inputAddress">Address</label>
+        <input type="text" class="form-control" id="billaddress" name = "billaddress" placeholder="Enter your Residence">
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group col-md-6">
+          <label for="inputCity">City</label>
+          <input type="text" class="form-control" id="billcity" name="billcity">
+        </div>
+        <div class="form-group col-md-4">
+          <label for="inputState">State</label>
+          <select id="inputState" class="form-control">
+            <option selected>Choose...</option>
+            <option>Kahawa Sukari</option>
+            <option>Dagoreti</option>
+            <option>Roysambu</option>
+            <option>Seti</option>
+            <option>Bypass</option>
+            <option>Githurai</option>
+            <option>Muranga Kenol</option>
+            <option>Muranga Town</option>
+            <option>Thika Wendanyi</option>
+          </select>
+        </div>
+        <div class="form-group col-md-2">
+          <label for="inputZip">Your ID</label>
+          <input type="text" class="form-control" id="inputZip">
+        </div>
+      
+      </div>  
+      <h2 style="text-align : center" class="head my-4">Medical Details</h2>
+      <div class="form-row ">
+        <div class="form-group col-md-6">
+          <label for="cars11">Service Chosen (For Confirmation)</label>
+          <select id="cars11" name = "cars11" class="form-control">
+            <option selected="selected" disabled>Choose...</option>
+            <option value = "Cold and Flu">Cold and Flu</option>
+            <option value = "Allergies">Allergies</option>
+            <option value = "Skin Conditions ">Skin Conditions </option>
+            <option value = "Digestive Issues">Digestive Issues</option>
+            <option value = "High Blood Pressure and Hypertension">High Blood Pressure and Hypertension</option>
+            <option value = "Diabetes">Diabetes</option>
+            <option value = "Headaches and Migraines">Headaches and Migraines</option>
+            <option value = "Mental Health">Mental Health </option>
+            <option value = "Back Pain">Back Pain</option>
+            
+            <option value = "Dental Care">Dental Care</option>
+            <option value = "Eye Health">Eye Health</option>
+            <option value = "Sports Injuries">Sports Injuries</option>
+            <option value = "Asthma">Asthma</option>
+            <option value = "Fractured Femur or Tibia">Fractured Femur or Tibia</option>
+            <option value = "Malaria">Malaria</option>
+          </select>
+        </div>
+        <div class="form-group col-md-6" >
+          <label for="color1">Time</label>
+          <select id="color1" class="form-control">
+            <option selected>Choose...</option>
+            <option value="8:30 am">8:30 am</option>
+            <option value="9:50 am">9:50 am</option>
+            <option value="10:20 am">10:20 am</option>
+            <option value="11:40 am">11:40 am</option>
+            <option value="3:00 pm">3:00 pm</option>
+          </select>
+        </div>
+    
+      </div>
+      <div class="form-row ">
+        <div class="form-group col-md-6" id="d11">
+          <label for="dayss">No. of Patients : </label>
+            <input type="number" class="form-control" id="dayss" name ="dayss" min=1 max = 30>
+        </div>
+        <div class="form-group col-md-6">
+          <label for="date">Date : </label>
+          <input type="date" class="form-control" id="date" name="date">
+        </div>
+      </div>
+    
+
+      <div class="cols1 my-4">
+        <h2 style="text-align : center">Total Bill</h2>
+        <ul class="list-group">
+          <li class="list-group-item d-flex justify-content-between align-items-center my-3" id="rentsec">
+            <p>
+               Total Rent is : Ksh <span></span>
+            </p>
+         </li>
+        </ul>
+      </div>
+  </div>
+</div>
+
+<div class="text-center">
+  <button class="btn btn-primary " type="button" data-toggle="modal" data-target="#exampleModalLong" id="showre" onclick="calculate()">Display Bill</button> 
+  <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true" id="13">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document" id="14" style="height:750px">
+      <div class="modal-content" id="15" style="background-color:rgb(226, 239, 251); ">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalCenterTitle">Receipt : </h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" id="printThis"><h1 style="text-align:center; background: -webkit-linear-gradient(#77f7f1, #094240);-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;" > Thanks for Booking! </h1><br>
+          <p id="n1" class="p2" style="text-align:center; font-size: 25px; font-weight:bold; color:rgb(35, 12, 109)" >Patient Name :  <span></span></p>
+         
+            <p id="d2" class="p8" style="text-align:center; font-size: 25px; font-weight:bold; color:rgb(35, 12, 109)" >No. of Patients :  <span></span></p>
+            <p id="d1" class="p2" style="text-align:center; font-size: 25px; font-weight:bold; color:rgb(35, 12, 109)" >Date :  <span></span></p>
+        
+         <p style="text-align:center; font-size: 23px;">
+          <span style="font-size:30px;font-weight:bold">Detailed Information :- </span><br><span style="font-weight:bold" id="crs1">Service : <span></span> </span><br><span style="font-weight:bold" id="crs2">Time  : <span></span> </span><br><br></p>
+          <p id="total" class="p1" style="text-align:center; font-size: 25px; font-weight:bold" >Total Bill: Ksh <span>N/A</span></p>
+          
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" id="btnPrint">Download Receipt</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button class="btn btn-primary " type="submit"  >Confirm Booking</button>
+    
+</div>
+</form>
+
+<script>
+  
+  function calculate(){
+    var select = document.getElementById("cars11");
+    var option = select.value;
+    var rent = 0;
+    if(option == "Cold and Flu"){
+        rent = 850;
+    }
+    else if(option == "Allergies"){
+      rent = 700;
+    }
+    else if(option == "Skin Conditions"){
+      rent = 2100;
+    }
+    else if(option == "Digestive Issues"){
+      rent = 430;
+    }
+    else if(option == "High Blood Pressure and Hypertension"){
+      rent = 580;
+    }
+    else if(option == "Diabetes"){
+      rent = 1600;
+    }
+    else if(option == "Headaches and Migraines"){
+      rent = 2300;
+    }
+    else if(option == "Mental Health"){
+      rent = 400;
+    }
+    else if(option == "Back Pain"){
+      rent = 690;
+    }
+    else{
+      rent = 0;
+    }
+    var rent1 = parseInt(rent);
+    var d1 = document.getElementById('d11');
+    var d2 = d1.querySelector('#dayss');
+    var d3 = Number(d2.value);
+    var total = rent * d3;
+
+    var num = document.getElementById('rentsec');
+    var num1 = num.querySelector("span");
+    num1.textContent = total;
+
+    var name1 = document.getElementById("billname").value;
+    var name2 = document.getElementById("n1");
+    var name3 = name2.querySelector("span");
+    name3.innerHTML = name1;
+    
+   
+
+      var da1 = document.getElementById("date").value;
+      var da2 = document.getElementById("d1");
+      var da3 = da2.querySelector("span");
+      da3.innerHTML = da1;
+
+      var dy1 = document.getElementById('d2');
+      var dy2 = dy1.querySelector("span");
+      dy2.innerHTML = d3;
+
+      var carn1 = document.getElementById('crs1');
+      var carn2 = carn1.querySelector("span");
+      carn2.innerHTML = option;
+
+      var select1 = document.getElementById("color1");
+      var option1 = select1.value;
+
+      var carc1 = document.getElementById('crs2');
+      var carc2 = carc1.querySelector("span");
+      carc2.innerHTML = option1;
+
+      var tp = document.getElementById("printThis")
+      var tp1 = tp.querySelector(".p1")
+      var tp2 = tp1.querySelector("span");
+      tp2.innerHTML = total;
+  }
+
+  document.getElementById("btnPrint").onclick = function () {
+    printElement(document.getElementById("printThis"));
+}
+
+function printElement(elem) {
+    var domClone = elem.cloneNode(true);
+    
+    var $printSection = document.getElementById("printSection");
+    
+    if (!$printSection) {
+        var $printSection = document.createElement("div");
+        $printSection.id = "printSection";
+        document.body.appendChild($printSection);
+    }
+    
+    $printSection.innerHTML = "";
+    $printSection.appendChild(domClone);
+    window.print();
+}
+</script>
+{% endblock body %}
